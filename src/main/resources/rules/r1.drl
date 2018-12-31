@@ -1,0 +1,14 @@
+package rules;
+
+dialect "java"
+
+import com.example.demo.*;
+import function com.example.demo.DroolsUtility.debug;
+
+rule "1 - test"
+when
+    $wrapper : RuleWrapper(java.lang.String.valueOf(request).contains("aaa"))
+
+    then
+     modify($wrapper){ getResponse().setActive(true);}
+     end

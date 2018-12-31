@@ -1,0 +1,48 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.1.RELEASE'
+		droolsVersion = '7.0.0.Final'
+		jwtVersion = '1.0.7.RELEASE'
+		oauth2Version = '2.1.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.8.0'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-starter-security')
+	implementation('org.springframework.boot:spring-security-jwt')
+
+	compile('org.glassfish.jaxb:jaxb-core:2.3.0')
+	compile('org.glassfish.jaxb:jaxb-runtime:2.3.0')
+	compile('javax.xml.bind:jaxb-api:2.3.0')
+    compile('org.jsoup:jsoup:1.11.3')
+	compile("org.kie:kie-api:$droolsVersion")
+	compile("org.drools:drools-core:$droolsVersion")
+	compile("org.drools:drools-compiler:$droolsVersion")
+	compile(group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.8.RELEASE') {
+		exclude(module: 'jackson-mapper-asl') // We already have a more recent jackson via Spring Boot
+	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+}
